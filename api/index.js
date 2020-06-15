@@ -29,7 +29,7 @@ router.post("/logout", (req, res) => {
   res.json({ ok: true });
 });
 
-// Export the server middleware
+// Export the server middleware.
 export default {
   path: "/api",
   handler: router
