@@ -1,4 +1,8 @@
-import express from "express";
+const express = require("express");
+const Parse = require("./parse");
+
+// nuxt.config.js de serverMiddleware bölümünde tanımlanıp çağrılıyor
+// serverMiddleware alanı yüklenmeden önce çalıştırılıyor (sunucuda)
 
 // Create express router
 const router = express.Router();
@@ -15,11 +19,16 @@ router.use((req, res, next) => {
 });
 
 // Add POST - /api/login
-router.post("/login", (req, res) => {
-  if (req.body.username === "demo" && req.body.password === "demo") {
-    req.session.authUser = { username: "demo" };
-    return res.json({ username: "demo" });
+router.post("/login", async (req, res) => {
+  const user = await Parse.User.logIn(req.body.username, req.body.password);
+  if (user) {
+    req.session.authUser = { username: user.get("username") };
+    return res.json({
+      username: user.get("username"),
+      email: user.get("email")
+    });
   }
+
   res.status(401).json({ message: "Bad credentials" });
 });
 
