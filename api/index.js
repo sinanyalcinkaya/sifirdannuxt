@@ -22,7 +22,10 @@ router.use((req, res, next) => {
 router.post("/login", async (req, res) => {
   const user = await Parse.User.logIn(req.body.username, req.body.password);
   if (user) {
-    req.session.authUser = { username: user.get("username") };
+    req.session.authUser = {
+      username: user.get("username"),
+      email: user.get("email")
+    };
     return res.json({
       username: user.get("username"),
       email: user.get("email")
