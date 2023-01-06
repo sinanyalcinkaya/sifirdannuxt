@@ -21,7 +21,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
     "express-session": "^1.15.3",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "parse": "^2.13.0"
   },
   "devDependencies": {
